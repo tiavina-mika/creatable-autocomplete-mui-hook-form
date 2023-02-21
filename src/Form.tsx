@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { articleSchema } from "./utils/validations/articleValidations";
 import { categories } from "./utils/articleUtils";
 import { ArticleInput, ICategory } from "./types/articleTypes";
-import CreatableAutoCompleteField from "./components/form/CreatableAutoCompleteField";
+import CreatableAutoCompleteField from "./components/form/fields/CreatableAutoCompleteField";
 
 const categoryOptions = categories.map((category: ICategory) => ({
   value: category.objectId,
