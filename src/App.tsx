@@ -1,5 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
-import Form from "./Form";
+
+import ArticleForm from "./containers/articles/ArticleForm";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
               Creatable Autocomplete MUI and React Hook Form
             </Typography>
           </Box>
-          <Form />
+          <ArticleForm />
         </div>
         <div>
           <Box sx={{ display: "flex", justifyContent: "center" }}>

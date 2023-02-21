@@ -1,17 +1,18 @@
 import { Box, Button } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { articleSchema } from "./utils/validations/articleValidations";
-import { categories } from "./utils/articleUtils";
-import { ArticleInput, ICategory } from "./types/articleTypes";
-import CreatableAutoCompleteField from "./components/form/fields/CreatableAutoCompleteField";
+import { articleSchema } from "../../utils/validations/articleValidations";
+import { categories } from "../../utils/articleUtils";
+import { ArticleInput } from "../../types/articleTypes";
+import CreatableAutoCompleteField from "../../components/form/fields/CreatableAutoCompleteField";
+import { ICategory } from "../../types/categoryTypes";
 
 const categoryOptions = categories.map((category: ICategory) => ({
   value: category.objectId,
   label: category.name
 }));
 
-const Form = () => {
+const ArticleForm = () => {
   const form = useForm<ArticleInput>({
     resolver: zodResolver(articleSchema)
   });
@@ -41,4 +42,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default ArticleForm;
