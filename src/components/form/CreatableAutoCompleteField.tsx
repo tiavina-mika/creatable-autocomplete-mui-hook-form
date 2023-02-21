@@ -4,9 +4,7 @@ import {
   Autocomplete,
   createFilterOptions,
   FormControl,
-  FormControlLabel,
   FormHelperText,
-  Switch,
   TextField
 } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
@@ -20,13 +18,17 @@ type Props = {
   name: string;
   label?: string;
   tooltip?: string;
+  required?: boolean;
   options: ICreatableSelectOption[];
+  fixedLabel?: string;
 };
 
 const CreatableAutoCompleteField: FC<Props> = ({
   name,
   label,
   tooltip,
+  fixedLabel,
+  required,
   options = []
 }) => {
   const [open, toggleOpen] = useState<boolean>(false);
@@ -47,6 +49,14 @@ const CreatableAutoCompleteField: FC<Props> = ({
 
   return (
     <FormControl component="fieldset" error={!!errors?.[name]}>
+      {fixedLabel && (
+        <InputLabel
+          label={fixedLabel}
+          tooltip={tooltip}
+          required={required}
+          sx={{ color: "#000" }}
+        />
+      )}
       <Controller
         name={name}
         control={control}

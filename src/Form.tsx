@@ -26,14 +26,14 @@ const Form = () => {
         {/* -------- inputs -------- */}
         <CreatableAutoCompleteField
           name="category"
-          label="Category"
+          fixedLabel="Category"
           options={categoryOptions}
         />
 
         {/* -------- button -------- */}
-        <Box mt={1}>
+        <Box mt={1.5}>
           <Button type="submit" variant="contained">
-            Submit
+            Save
           </Button>
         </Box>
       </form>
