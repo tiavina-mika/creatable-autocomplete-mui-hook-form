@@ -32,11 +32,13 @@ const CategoryForm: FC<Props> = ({ formId, onSubmit, initialValues }) => {
         <TextField name="name" fixedLabel="Name" />
 
         {/* -------- button -------- */}
-        <Box mt={1.5}>
-          <Button type="submit" variant="contained">
-            Save
-          </Button>
-        </Box>
+        {!formId && (
+          <Box mt={1.5}>
+            <Button type="submit" variant="contained">
+              Save
+            </Button>
+          </Box>
+        )}
       </form>
     </FormProvider>
   );

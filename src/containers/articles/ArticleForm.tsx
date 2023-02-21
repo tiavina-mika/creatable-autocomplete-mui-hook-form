@@ -1,14 +1,15 @@
+import { useEffect, useState } from "react";
+
 import { Box, Button } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
+
 import { articleSchema } from "../../utils/validations/articleValidations";
 import { categories } from "../../utils/articleUtils";
 import { ArticleInput } from "../../types/articleTypes";
 import CreatableAutoCompleteField from "../../components/form/fields/CreatableAutoCompleteField";
 import { CategoryInput, ICategory } from "../../types/categoryTypes";
-import { useEffect, useState } from "react";
-import Dialog from "../../components/Dialog";
 import CategoryForm from "../categories/CategoryForm";
 import { ISelectOption } from "../../types/appTypes";
 
@@ -23,33 +24,29 @@ const CATEGORY_FORM_ID = "article-category-form-id";
 
 const ArticleForm = () => {
   const [categoryOptions, setCategoryOptions] = useState<ISelectOption[]>([]);
-  const [openCategoryFormDialog, setOpenCategoryFormDialog] = useState<boolean>(
-    false
-  );
 
   useEffect(() => {
     setCategoryOptions(initialCategoryOptions);
   }, []);
 
   const form = useForm<ArticleInput>({
+    mode: "onChange",
     resolver: zodResolver(articleSchema)
   });
 
-  const { handleSubmit } = form;
+  const { handleSubmit, setValue } = form;
 
-  // const toggleCategoryFormDialog = (value: boolean) => setOpenCategoryFormDialog(value);
-  const toggleCategoryFormDialog = () =>
-    setOpenCategoryFormDialog((prev) => !prev);
-
-  const onSubmit = (values: ArticleInput) =>
+  const onSubmit = (values: ArticleInput) => {
     console.log("aricles values", values);
+  };
   const onCategoryFormSubmit = (values: CategoryInput) => {
-    setCategoryOptions((prev) => [
-      { value: uuidv4(), label: values.name },
-      ...prev
-    ]);
-    toggleCategoryFormDialog();
-    // console.log("category values", values);
+    const tempId = uuidv4();
+    const currentArticleCategoryValue = { label: values.name, value: tempId };
+    // update options with the newly created category
+    setCategoryOptions((prev) => [currentArticleCategoryValue, ...prev]);
+
+    // update the category field of article form
+    setValue("category", currentArticleCategoryValue);
   };
 
   return (
@@ -60,23 +57,18 @@ const ArticleForm = () => {
           name="category"
           fixedLabel="Category"
           options={categoryOptions}
-          toggleDialog={toggleCategoryFormDialog}
-          dialogForm={
-            <Dialog
-              maxWidth="sm"
-              fullWidth
-              title="Add new category"
-              open={openCategoryFormDialog}
-              toggle={toggleCategoryFormDialog}
-              content={
-                <CategoryForm
-                  formId={CATEGORY_FORM_ID}
-                  onSubmit={onCategoryFormSubmit}
-                />
-              }
-              formId={CATEGORY_FORM_ID}
+          formId={CATEGORY_FORM_ID}
+          dialogTitle="Add new category"
+          renderForm={(formId, value, closeDialog) => (
+            <CategoryForm
+              formId={formId}
+              onSubmit={(values: CategoryInput) => {
+                onCategoryFormSubmit(values);
+                closeDialog();
+              }}
+              initialValues={value ? { name: value.label } : {}}
             />
-          }
+          )}
         />
 
         {/* -------- button -------- */}

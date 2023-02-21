@@ -1,40 +1,35 @@
-import { FC, ReactNode, useEffect, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 
 import { Autocomplete, createFilterOptions, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 import { ICreatableSelectOption } from "../../../types/appTypes";
+import Dialog from "../../Dialog";
 
 const filter = createFilterOptions<any>();
 
 type Props = {
   value: any;
   label?: string;
-  dialogForm?: ReactNode;
   options: ICreatableSelectOption[];
   onChange: (value: ICreatableSelectOption) => void;
-  toggleDialog?: () => void;
-  // toggleDialog?: (value: boolean) => void;
+  formId: string;
+  dialogTitle: string;
+  renderForm: (formId: string, value: any, toggle: () => void) => ReactNode;
 };
 
 const CreatableAutoCompleteInput: FC<Props> = ({
   value,
   label,
   onChange,
-  dialogForm,
-  toggleDialog,
+  formId,
+  renderForm,
+  dialogTitle,
   options = []
 }) => {
-  // const [open, toggleOpen] = useState<boolean>(false);
-  // const [newOptions, setNewOptions] = useState<ICreatableSelectOption[]>([]);
-  // // console.table('newOptions', newOptions)
-  // useEffect(() => {
-  //   setNewOptions(options);
-  // }, [options]);
+  const [openFormDialog, setOpenFormDialog] = useState<boolean>(false);
 
-  // const addNewOption = (option: ICreatableSelectOption) => {
-  //   setNewOptions((prev) => [option, ...prev]);
-  // }
+  const toggleDialog = () => setOpenFormDialog((prev) => !prev);
 
   return (
     <>
@@ -45,12 +40,6 @@ const CreatableAutoCompleteInput: FC<Props> = ({
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
               toggleDialog();
-              // toggleDialog(true);
-              // addNewOption({
-              //   label: newValue,
-              //   value: uuidv4()
-              //   // year: '',
-              // });
               onChange({
                 label: newValue,
                 value: uuidv4()
@@ -58,10 +47,6 @@ const CreatableAutoCompleteInput: FC<Props> = ({
             });
           } else if (newValue && newValue.inputValue) {
             toggleDialog();
-            // addNewOption({
-            //   label: newValue.inputValue,
-            //   value: uuidv4()
-            // });
             onChange({
               label: newValue.inputValue,
               value: uuidv4()
@@ -102,7 +87,15 @@ const CreatableAutoCompleteInput: FC<Props> = ({
         freeSolo
         renderInput={(params) => <TextField {...params} label={label} />}
       />
-      {dialogForm}
+      <Dialog
+        maxWidth="sm"
+        fullWidth
+        title={dialogTitle}
+        open={openFormDialog}
+        toggle={toggleDialog}
+        content={renderForm(formId, value, toggleDialog)}
+        formId={formId}
+      />
     </>
   );
 };

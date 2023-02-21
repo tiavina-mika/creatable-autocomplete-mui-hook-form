@@ -15,8 +15,9 @@ type Props = {
   options: ICreatableSelectOption[];
   fixedLabel?: string;
   dialogForm?: ReactNode;
-  toggleDialog?: () => void;
-  // toggleDialog?: (value: boolean) => void;
+  renderForm: (formId: string, value: any, toggle: () => void) => ReactNode;
+  formId: string;
+  dialogTitle: string;
 };
 
 const CreatableAutoCompleteField: FC<Props> = ({
@@ -25,8 +26,9 @@ const CreatableAutoCompleteField: FC<Props> = ({
   tooltip,
   fixedLabel,
   required,
-  dialogForm,
-  toggleDialog,
+  renderForm,
+  formId,
+  dialogTitle,
   options = []
 }) => {
   // hooks
@@ -55,8 +57,9 @@ const CreatableAutoCompleteField: FC<Props> = ({
             onChange={onChange}
             options={options}
             label={label}
-            dialogForm={dialogForm}
-            toggleDialog={toggleDialog}
+            renderForm={renderForm}
+            formId={formId}
+            dialogTitle={dialogTitle}
           />
         )}
       />

@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 
 import ArticleForm from "./containers/articles/ArticleForm";
 
@@ -15,12 +15,12 @@ const App = () => {
         }}
       >
         <div>
-          <Box mb={1.2}>
-            <Typography>
-              Creatable Autocomplete MUI and React Hook Form
+          <Stack spacing={3}>
+            <Typography variant="h5">
+              Creatable Autocomplete with MUI and React Hook Form
             </Typography>
-          </Box>
-          <ArticleForm />
+            <ArticleForm />
+          </Stack>
         </div>
         <div>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
