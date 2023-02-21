@@ -10,17 +10,18 @@ import TextField from "../../components/form/fields/TextField";
 type Props = {
   formId: string;
   onSubmit: (values: CategoryInput) => void;
+  initialValues?: Record<string, any>;
 };
 
-const CategoryForm: FC<Props> = ({ formId, onSubmit }) => {
+const CategoryForm: FC<Props> = ({ formId, onSubmit, initialValues }) => {
   const form = useForm<CategoryInput>({
-    resolver: zodResolver(categorySchema)
+    resolver: zodResolver(categorySchema),
+    defaultValues: initialValues
   });
 
   const { handleSubmit } = form;
 
   const _onSubmit = (values: CategoryInput) => {
-    console.log("values", values);
     onSubmit(values);
   };
 

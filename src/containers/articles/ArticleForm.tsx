@@ -1,26 +1,35 @@
 import { Box, Button } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { v4 as uuidv4 } from "uuid";
 import { articleSchema } from "../../utils/validations/articleValidations";
 import { categories } from "../../utils/articleUtils";
 import { ArticleInput } from "../../types/articleTypes";
 import CreatableAutoCompleteField from "../../components/form/fields/CreatableAutoCompleteField";
 import { CategoryInput, ICategory } from "../../types/categoryTypes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dialog from "../../components/Dialog";
 import CategoryForm from "../categories/CategoryForm";
+import { ISelectOption } from "../../types/appTypes";
 
-const categoryOptions = categories.map((category: ICategory) => ({
+// select options
+const initialCategoryOptions = categories.map((category: ICategory) => ({
   value: category.objectId,
   label: category.name
 }));
 
+// id to link form and buttons outside the form
 const CATEGORY_FORM_ID = "article-category-form-id";
 
 const ArticleForm = () => {
+  const [categoryOptions, setCategoryOptions] = useState<ISelectOption[]>([]);
   const [openCategoryFormDialog, setOpenCategoryFormDialog] = useState<boolean>(
     false
   );
+
+  useEffect(() => {
+    setCategoryOptions(initialCategoryOptions);
+  }, []);
 
   const form = useForm<ArticleInput>({
     resolver: zodResolver(articleSchema)
@@ -34,8 +43,14 @@ const ArticleForm = () => {
 
   const onSubmit = (values: ArticleInput) =>
     console.log("aricles values", values);
-  const onCategoryFormSubmit = (values: CategoryInput) =>
-    console.log("category values", values);
+  const onCategoryFormSubmit = (values: CategoryInput) => {
+    setCategoryOptions((prev) => [
+      { value: uuidv4(), label: values.name },
+      ...prev
+    ]);
+    toggleCategoryFormDialog();
+    // console.log("category values", values);
+  };
 
   return (
     <FormProvider {...form}>

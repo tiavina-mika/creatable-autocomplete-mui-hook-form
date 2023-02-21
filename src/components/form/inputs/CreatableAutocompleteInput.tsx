@@ -1,6 +1,7 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 
 import { Autocomplete, createFilterOptions, TextField } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 
 import { ICreatableSelectOption } from "../../../types/appTypes";
 
@@ -25,14 +26,15 @@ const CreatableAutoCompleteInput: FC<Props> = ({
   options = []
 }) => {
   // const [open, toggleOpen] = useState<boolean>(false);
-  const [newOptions, setNewOptions] = useState<ICreatableSelectOption[]>([]);
+  // const [newOptions, setNewOptions] = useState<ICreatableSelectOption[]>([]);
+  // // console.table('newOptions', newOptions)
+  // useEffect(() => {
+  //   setNewOptions(options);
+  // }, [options]);
 
-  useEffect(() => {
-    setNewOptions(options);
-  }, [options]);
-
-  const addNewOption = (option: ICreatableSelectOption) =>
-    setNewOptions((prev) => [option, ...prev]);
+  // const addNewOption = (option: ICreatableSelectOption) => {
+  //   setNewOptions((prev) => [option, ...prev]);
+  // }
 
   return (
     <>
@@ -44,16 +46,25 @@ const CreatableAutoCompleteInput: FC<Props> = ({
             setTimeout(() => {
               toggleDialog();
               // toggleDialog(true);
-              addNewOption({
-                label: newValue
-                // year: '',
+              // addNewOption({
+              //   label: newValue,
+              //   value: uuidv4()
+              //   // year: '',
+              // });
+              onChange({
+                label: newValue,
+                value: uuidv4()
               });
             });
           } else if (newValue && newValue.inputValue) {
             toggleDialog();
-            addNewOption({
-              label: newValue.inputValue
-              // year: '',
+            // addNewOption({
+            //   label: newValue.inputValue,
+            //   value: uuidv4()
+            // });
+            onChange({
+              label: newValue.inputValue,
+              value: uuidv4()
             });
           } else {
             onChange(newValue);
@@ -72,7 +83,7 @@ const CreatableAutoCompleteInput: FC<Props> = ({
           return filtered;
         }}
         id="creatable-autocomplete"
-        options={newOptions}
+        options={options}
         getOptionLabel={(option) => {
           // e.g value selected with enter, right from the input
           if (typeof option === "string") {

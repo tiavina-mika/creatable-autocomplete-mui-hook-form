@@ -11,6 +11,7 @@
     "react-dom": "latest",
     "react-hook-form": "7.39.5",
     "typescript": "latest",
+    "uuid": "9.0.0",
     "zod": "3.19.1"
   },
   "description": "https://github.com/mui/material-ui/blob/v5.10.14/docs/data/material/components/checkboxes/Checkboxes.tsx",
