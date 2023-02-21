@@ -8,14 +8,12 @@ import {
 import { useFormContext, Controller } from "react-hook-form";
 
 import InputLabel from "../InputLabel";
-import { ICreatableSelectOption } from "../../../types/appTypes";
 
 type Props = {
   name: string;
   label?: string;
   tooltip?: string;
   required?: boolean;
-  options: ICreatableSelectOption[];
   fixedLabel?: string;
 };
 
@@ -24,8 +22,7 @@ const TextField: FC<Props> = ({
   label,
   tooltip,
   fixedLabel,
-  required,
-  options = []
+  required
 }) => {
   // hooks
   const {

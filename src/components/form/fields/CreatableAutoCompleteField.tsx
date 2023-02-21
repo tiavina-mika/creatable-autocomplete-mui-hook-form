@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 import { FormControl, FormHelperText } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
@@ -14,6 +14,9 @@ type Props = {
   required?: boolean;
   options: ICreatableSelectOption[];
   fixedLabel?: string;
+  dialogForm?: ReactNode;
+  toggleDialog?: () => void;
+  // toggleDialog?: (value: boolean) => void;
 };
 
 const CreatableAutoCompleteField: FC<Props> = ({
@@ -22,6 +25,8 @@ const CreatableAutoCompleteField: FC<Props> = ({
   tooltip,
   fixedLabel,
   required,
+  dialogForm,
+  toggleDialog,
   options = []
 }) => {
   // hooks
@@ -50,6 +55,8 @@ const CreatableAutoCompleteField: FC<Props> = ({
             onChange={onChange}
             options={options}
             label={label}
+            dialogForm={dialogForm}
+            toggleDialog={toggleDialog}
           />
         )}
       />
