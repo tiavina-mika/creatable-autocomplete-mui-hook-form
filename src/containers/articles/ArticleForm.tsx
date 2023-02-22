@@ -47,6 +47,7 @@ const ArticleForm = () => {
 
     // update the category field of article form
     setValue("category", currentArticleCategoryValue);
+    console.log("category values", values);
   };
 
   return (

@@ -16,6 +16,7 @@ type Props = {
   tooltip?: string;
   required?: boolean;
   fixedLabel?: string;
+  helperText?: string;
 } & TextFieldProps;
 
 const TextField: FC<Props> = ({
@@ -24,6 +25,7 @@ const TextField: FC<Props> = ({
   tooltip,
   fixedLabel,
   required,
+  helperText,
   ...inputProps
 }) => {
   // hooks
@@ -57,6 +59,7 @@ const TextField: FC<Props> = ({
             onChange={onChange}
             label={label}
             variant="outlined"
+            helperText={helperText}
           />
         )}
       />

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -28,17 +28,24 @@ const CategoryForm: FC<Props> = ({ formId, onSubmit, initialValues }) => {
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(_onSubmit)} id={formId}>
-        {/* -------- inputs -------- */}
-        <TextField name="name" fixedLabel="Name" fullWidth />
+        <Stack spacing={4}>
+          {/* -------- inputs -------- */}
+          <TextField name="name" fixedLabel="Name" fullWidth />
 
-        {/* -------- button -------- */}
-        {!formId && (
-          <Box mt={1.5}>
+          <TextField
+            name="tags"
+            fixedLabel="Tags"
+            fullWidth
+            helperText="Tags should be separated by coma"
+          />
+
+          {/* -------- button -------- */}
+          {!formId && (
             <Button type="submit" variant="contained">
               Save
             </Button>
-          </Box>
-        )}
+          )}
+        </Stack>
       </form>
     </FormProvider>
   );
