@@ -3,7 +3,8 @@ import { FC } from "react";
 import {
   FormControl,
   FormHelperText,
-  TextField as MUITextField
+  TextField as MUITextField,
+  TextFieldProps
 } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
 
@@ -15,14 +16,15 @@ type Props = {
   tooltip?: string;
   required?: boolean;
   fixedLabel?: string;
-};
+} & TextFieldProps;
 
 const TextField: FC<Props> = ({
   name,
   label,
   tooltip,
   fixedLabel,
-  required
+  required,
+  ...inputProps
 }) => {
   // hooks
   const {
@@ -31,7 +33,11 @@ const TextField: FC<Props> = ({
   } = useFormContext();
 
   return (
-    <FormControl component="fieldset" error={!!errors?.[name]}>
+    <FormControl
+      component="fieldset"
+      error={!!errors?.[name]}
+      fullWidth={inputProps.fullWidth}
+    >
       {fixedLabel && (
         <InputLabel
           label={fixedLabel}
@@ -46,6 +52,7 @@ const TextField: FC<Props> = ({
         defaultValue=""
         render={({ field: { value, onChange } }: any): any => (
           <MUITextField
+            {...inputProps}
             value={value}
             onChange={onChange}
             label={label}

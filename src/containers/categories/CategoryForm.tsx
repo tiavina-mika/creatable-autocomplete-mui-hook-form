@@ -29,7 +29,7 @@ const CategoryForm: FC<Props> = ({ formId, onSubmit, initialValues }) => {
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(_onSubmit)} id={formId}>
         {/* -------- inputs -------- */}
-        <TextField name="name" fixedLabel="Name" />
+        <TextField name="name" fixedLabel="Name" fullWidth />
 
         {/* -------- button -------- */}
         {!formId && (
