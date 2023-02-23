@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, Fragment, ReactNode, useState } from "react";
 
 import { Autocomplete, createFilterOptions, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
@@ -32,7 +32,7 @@ const CreatableAutoCompleteInput: FC<Props> = ({
   const toggleDialog = () => setOpenFormDialog((prev) => !prev);
 
   return (
-    <>
+    <Fragment>
       <Autocomplete
         value={value}
         onChange={(event, newValue) => {
@@ -83,7 +83,6 @@ const CreatableAutoCompleteInput: FC<Props> = ({
         clearOnBlur
         handleHomeEndKeys
         renderOption={(props, option) => <li {...props}>{option.label}</li>}
-        sx={{ width: 300 }}
         freeSolo
         renderInput={(params) => <TextField {...params} label={label} />}
       />
@@ -96,7 +95,7 @@ const CreatableAutoCompleteInput: FC<Props> = ({
         content={renderForm(formId, value, toggleDialog)}
         formId={formId}
       />
-    </>
+    </Fragment>
   );
 };
 

@@ -60,6 +60,7 @@ const ArticleForm = () => {
           options={categoryOptions}
           formId={CATEGORY_FORM_ID}
           dialogTitle="Add new category"
+          fullWidth
           renderForm={(formId, value, closeDialog) => (
             <CategoryForm
               formId={formId}

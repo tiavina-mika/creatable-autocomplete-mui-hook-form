@@ -18,6 +18,7 @@ type Props = {
   renderForm: (formId: string, value: any, toggle: () => void) => ReactNode;
   formId: string;
   dialogTitle: string;
+  fullWidth?: boolean;
 };
 
 const CreatableAutoCompleteField: FC<Props> = ({
@@ -29,6 +30,7 @@ const CreatableAutoCompleteField: FC<Props> = ({
   renderForm,
   formId,
   dialogTitle,
+  fullWidth,
   options = []
 }) => {
   // hooks
@@ -38,7 +40,11 @@ const CreatableAutoCompleteField: FC<Props> = ({
   } = useFormContext();
 
   return (
-    <FormControl component="fieldset" error={!!errors?.[name]}>
+    <FormControl
+      component="fieldset"
+      error={!!errors?.[name]}
+      fullWidth={fullWidth}
+    >
       {fixedLabel && (
         <InputLabel
           label={fixedLabel}
