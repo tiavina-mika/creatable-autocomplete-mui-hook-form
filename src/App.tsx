@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography, Card, Paper } from "@mui/material";
+import { Box, Container, Stack, Typography, Paper } from "@mui/material";
 
 import ArticleForm from "./containers/articles/ArticleForm";
 

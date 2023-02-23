@@ -13,7 +13,16 @@ import { CategoryInput, ICategory } from "../../types/categoryTypes";
 import CategoryForm from "../categories/CategoryForm";
 import { ISelectOption } from "../../types/appTypes";
 import TextField from "../../components/form/fields/TextField";
+import { green } from "@mui/material/colors";
 
+const sx = {
+  result: {
+    mt: 2,
+    bgcolor: green[50],
+    p: 2,
+    borderRadius: 1
+  }
+};
 // select options
 const initialCategoryOptions = categories.map((category: ICategory) => ({
   value: category.objectId,
@@ -92,7 +101,9 @@ const ArticleForm = () => {
         </Stack>
       </form>
       {/* result */}
-      {articleValues && JSON.stringify(articleValues)}
+      {articleValues && (
+        <Box sx={sx.result}>{JSON.stringify(articleValues)}</Box>
+      )}
     </FormProvider>
   );
 };
