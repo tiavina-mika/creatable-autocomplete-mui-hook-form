@@ -54,7 +54,7 @@ const ArticleForm = () => {
     setArticleValues(values);
   };
 
-  const onCategoryFormSubmit = (values: CategoryInput) => {
+  const onCreateCategoryFormSubmit = (values: CategoryInput) => {
     const tempId = uuidv4();
     const currentArticleCategoryValue = { label: values.name, value: tempId };
     // update options with the newly created category
@@ -85,7 +85,7 @@ const ArticleForm = () => {
                 hasParentForm
                 formId={formId}
                 onSubmit={(values: CategoryInput) => {
-                  onCategoryFormSubmit(values);
+                  onCreateCategoryFormSubmit(values);
                   closeDialog();
                 }}
                 initialValues={value ? { name: value.label } : {}}
