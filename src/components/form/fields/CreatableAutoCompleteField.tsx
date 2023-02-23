@@ -21,6 +21,7 @@ type Props = {
   fullWidth?: boolean;
   helperText?: string;
   placeholder?: string;
+  isCreateOnInputChange?: boolean;
 };
 
 const CreatableAutoCompleteField: FC<Props> = ({
@@ -35,6 +36,7 @@ const CreatableAutoCompleteField: FC<Props> = ({
   fullWidth,
   helperText,
   placeholder,
+  isCreateOnInputChange,
   options = []
 }) => {
   // hooks
@@ -71,6 +73,7 @@ const CreatableAutoCompleteField: FC<Props> = ({
             formId={formId}
             dialogTitle={dialogTitle}
             placeholder={placeholder}
+            isCreateOnInputChange={isCreateOnInputChange}
           />
         )}
       />

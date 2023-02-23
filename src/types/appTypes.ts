@@ -5,4 +5,5 @@ export interface ISelectOption {
 
 export interface ICreatableSelectOption extends Partial<ISelectOption> {
   inputValue?: any;
+  disabled?: boolean;
 }
