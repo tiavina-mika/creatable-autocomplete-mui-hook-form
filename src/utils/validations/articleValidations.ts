@@ -6,6 +6,6 @@ const selectOptionSchema = object({
 });
 
 export const articleSchema = object({
-  category: selectOptionSchema,
-  title: string().nullable() // just for demo purpose
+  category: selectOptionSchema.nullable(),
+  title: string().min(1, { message: "Title required" })
 });

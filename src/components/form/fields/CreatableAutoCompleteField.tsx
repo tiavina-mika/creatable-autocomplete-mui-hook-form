@@ -19,6 +19,8 @@ type Props = {
   formId: string;
   dialogTitle: string;
   fullWidth?: boolean;
+  helperText?: string;
+  placeholder?: string;
 };
 
 const CreatableAutoCompleteField: FC<Props> = ({
@@ -31,6 +33,8 @@ const CreatableAutoCompleteField: FC<Props> = ({
   formId,
   dialogTitle,
   fullWidth,
+  helperText,
+  placeholder,
   options = []
 }) => {
   // hooks
@@ -66,11 +70,14 @@ const CreatableAutoCompleteField: FC<Props> = ({
             renderForm={renderForm}
             formId={formId}
             dialogTitle={dialogTitle}
+            placeholder={placeholder}
           />
         )}
       />
-      {errors[name] && (
+      {errors[name] ? (
         <FormHelperText error>{(errors as any)[name].message}</FormHelperText>
+      ) : (
+        <FormHelperText>{helperText}</FormHelperText>
       )}
     </FormControl>
   );

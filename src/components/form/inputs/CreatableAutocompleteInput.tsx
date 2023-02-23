@@ -15,6 +15,7 @@ type Props = {
   onChange: (value: ICreatableSelectOption) => void;
   formId: string;
   dialogTitle: string;
+  placeholder?: string;
   renderForm: (formId: string, value: any, toggle: () => void) => ReactNode;
 };
 
@@ -25,6 +26,7 @@ const CreatableAutoCompleteInput: FC<Props> = ({
   formId,
   renderForm,
   dialogTitle,
+  placeholder,
   options = []
 }) => {
   const [openFormDialog, setOpenFormDialog] = useState<boolean>(false);
@@ -84,7 +86,9 @@ const CreatableAutoCompleteInput: FC<Props> = ({
         handleHomeEndKeys
         renderOption={(props, option) => <li {...props}>{option.label}</li>}
         freeSolo
-        renderInput={(params) => <TextField {...params} label={label} />}
+        renderInput={(params) => (
+          <TextField {...params} placeholder={placeholder} label={label} />
+        )}
       />
       <Dialog
         maxWidth="sm"

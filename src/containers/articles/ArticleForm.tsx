@@ -32,7 +32,10 @@ const ArticleForm = () => {
 
   const form = useForm<ArticleInput>({
     mode: "onChange",
-    resolver: zodResolver(articleSchema)
+    resolver: zodResolver(articleSchema),
+    defaultValues: {
+      category: null
+    }
   });
 
   const { handleSubmit, setValue } = form;
@@ -56,7 +59,7 @@ const ArticleForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           {/* -------- inputs -------- */}
-          <TextField name="title" fixedLabel="Title" fullWidth />
+          <TextField name="title" fixedLabel="Title" required fullWidth />
 
           <CreatableAutoCompleteField
             name="category"
@@ -64,6 +67,7 @@ const ArticleForm = () => {
             options={categoryOptions}
             formId={CATEGORY_FORM_ID}
             dialogTitle="Add new category"
+            placeholder="Choose or create a category"
             fullWidth
             renderForm={(formId, value, closeDialog) => (
               <CategoryForm
