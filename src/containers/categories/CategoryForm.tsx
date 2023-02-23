@@ -1,6 +1,6 @@
 import { FC, FormEvent } from "react";
 import { Button, Stack } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { CategoryInput } from "../../types/categoryTypes";
@@ -27,7 +27,7 @@ const CategoryForm: FC<Props> = ({
 
   const { handleSubmit } = form;
 
-  const _onSubmit = (values: CategoryInput) => {
+  const _onSubmit: SubmitHandler<CategoryInput> = (values) => {
     onSubmit(values);
   };
 

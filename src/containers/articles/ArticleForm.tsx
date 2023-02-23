@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { Box, Button, Stack } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
+import { green } from "@mui/material/colors";
 
 import { articleSchema } from "../../utils/validations/articleValidations";
 import { categories } from "../../utils/articleUtils";
@@ -13,7 +14,6 @@ import { CategoryInput, ICategory } from "../../types/categoryTypes";
 import CategoryForm from "../categories/CategoryForm";
 import { ISelectOption } from "../../types/appTypes";
 import TextField from "../../components/form/fields/TextField";
-import { green } from "@mui/material/colors";
 
 const sx = {
   result: {
@@ -50,9 +50,10 @@ const ArticleForm = () => {
 
   const { handleSubmit, setValue } = form;
 
-  const onSubmit = (values: ArticleInput) => {
+  const onSubmit: SubmitHandler<ArticleInput> = (values) => {
     setArticleValues(values);
   };
+
   const onCategoryFormSubmit = (values: CategoryInput) => {
     const tempId = uuidv4();
     const currentArticleCategoryValue = { label: values.name, value: tempId };
