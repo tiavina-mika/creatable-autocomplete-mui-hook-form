@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Box, Button, Stack } from "@mui/material";
+import { FC, FormEvent } from "react";
+import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -11,9 +11,15 @@ type Props = {
   formId: string;
   onSubmit: (values: CategoryInput) => void;
   initialValues?: Record<string, any>;
+  hasParentForm?: boolean;
 };
 
-const CategoryForm: FC<Props> = ({ formId, onSubmit, initialValues }) => {
+const CategoryForm: FC<Props> = ({
+  formId,
+  onSubmit,
+  initialValues,
+  hasParentForm = false
+}) => {
   const form = useForm<CategoryInput>({
     resolver: zodResolver(categorySchema),
     defaultValues: initialValues
@@ -25,9 +31,21 @@ const CategoryForm: FC<Props> = ({ formId, onSubmit, initialValues }) => {
     onSubmit(values);
   };
 
+  const handleSubmitWithoutPropagation = (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    // if nested form
+    if (hasParentForm) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    handleSubmit(_onSubmit)(event);
+  };
+
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSubmit(_onSubmit)} id={formId}>
+      <form onSubmit={handleSubmitWithoutPropagation} id={formId}>
         <Stack spacing={4}>
           {/* -------- inputs -------- */}
           <TextField name="name" fixedLabel="Name" fullWidth />

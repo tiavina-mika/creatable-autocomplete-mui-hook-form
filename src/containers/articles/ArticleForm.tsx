@@ -25,6 +25,7 @@ const CATEGORY_FORM_ID = "article-category-form-id";
 
 const ArticleForm = () => {
   const [categoryOptions, setCategoryOptions] = useState<ISelectOption[]>([]);
+  const [articleValues, setArticleValues] = useState<ArticleInput | null>(null);
 
   useEffect(() => {
     setCategoryOptions(initialCategoryOptions);
@@ -41,7 +42,7 @@ const ArticleForm = () => {
   const { handleSubmit, setValue } = form;
 
   const onSubmit = (values: ArticleInput) => {
-    console.log("aricles values", values);
+    setArticleValues(values);
   };
   const onCategoryFormSubmit = (values: CategoryInput) => {
     const tempId = uuidv4();
@@ -71,6 +72,7 @@ const ArticleForm = () => {
             fullWidth
             renderForm={(formId, value, closeDialog) => (
               <CategoryForm
+                hasParentForm
                 formId={formId}
                 onSubmit={(values: CategoryInput) => {
                   onCategoryFormSubmit(values);
@@ -89,6 +91,8 @@ const ArticleForm = () => {
           </Box>
         </Stack>
       </form>
+      {/* result */}
+      {articleValues && JSON.stringify(articleValues)}
     </FormProvider>
   );
 };
