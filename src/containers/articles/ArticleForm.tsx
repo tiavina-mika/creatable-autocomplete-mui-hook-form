@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Box, Button } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
@@ -12,6 +12,7 @@ import CreatableAutoCompleteField from "../../components/form/fields/CreatableAu
 import { CategoryInput, ICategory } from "../../types/categoryTypes";
 import CategoryForm from "../categories/CategoryForm";
 import { ISelectOption } from "../../types/appTypes";
+import TextField from "../../components/form/fields/TextField";
 
 // select options
 const initialCategoryOptions = categories.map((category: ICategory) => ({
@@ -53,32 +54,36 @@ const ArticleForm = () => {
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* -------- inputs -------- */}
-        <CreatableAutoCompleteField
-          name="category"
-          fixedLabel="Category"
-          options={categoryOptions}
-          formId={CATEGORY_FORM_ID}
-          dialogTitle="Add new category"
-          fullWidth
-          renderForm={(formId, value, closeDialog) => (
-            <CategoryForm
-              formId={formId}
-              onSubmit={(values: CategoryInput) => {
-                onCategoryFormSubmit(values);
-                closeDialog();
-              }}
-              initialValues={value ? { name: value.label } : {}}
-            />
-          )}
-        />
+        <Stack spacing={2}>
+          {/* -------- inputs -------- */}
+          <TextField name="title" fixedLabel="Title" fullWidth />
 
-        {/* -------- button -------- */}
-        <Box mt={1.5}>
-          <Button type="submit" variant="contained">
-            Save
-          </Button>
-        </Box>
+          <CreatableAutoCompleteField
+            name="category"
+            fixedLabel="Category"
+            options={categoryOptions}
+            formId={CATEGORY_FORM_ID}
+            dialogTitle="Add new category"
+            fullWidth
+            renderForm={(formId, value, closeDialog) => (
+              <CategoryForm
+                formId={formId}
+                onSubmit={(values: CategoryInput) => {
+                  onCategoryFormSubmit(values);
+                  closeDialog();
+                }}
+                initialValues={value ? { name: value.label } : {}}
+              />
+            )}
+          />
+
+          {/* -------- button -------- */}
+          <Box className="flexRow justifyEnd">
+            <Button type="submit" variant="contained" sx={{ py: 1.5, px: 4 }}>
+              Save
+            </Button>
+          </Box>
+        </Stack>
       </form>
     </FormProvider>
   );
